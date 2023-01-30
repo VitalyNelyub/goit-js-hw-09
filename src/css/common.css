@@ -16,3 +16,31 @@ img {
   display: block;
   max-width: 100%;
 }
+
+.timer {
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 25px;
+  display: flex;
+  gap: 20px;
+  border: 2px solid rgba(0, 0, 255, 0.397);
+  background: rgba(35, 85, 90, 0.479);
+  border-radius: 8px;
+  max-width: 500px;
+}
+
+.field {
+  text-align: center;
+  border: 2px solid rgba(0, 0, 255, 0.397);
+  border-radius: 8px;
+  background: rgba(139, 213, 219, 0.479);
+}
+
+.value {
+  color: rgba(230, 24, 17, 0.822);
+  font-size: 30px;
+}
+
+.label {
+  color: darkgreen;
+}
