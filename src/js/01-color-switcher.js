@@ -6,19 +6,26 @@ const stopBtn = document.querySelector('button[data-stop]');
 startBtn.addEventListener('click', startGenerateColor);
 stopBtn.addEventListener('click', stopGenerateColor);
 
-function startGenerateColor(event) {
+let timerId = null;
+
+function startGenerateColor(event) {  
   if (event.target == startBtn) {
-    console.log('Я кнопка старта генерации фона');
-    document.body.style.backgroundColor = `${getRandomHexColor()}`;
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+    timerId = setInterval(() => {
+      document.body.style.backgroundColor = `#${Math.floor(
+        Math.random() * 16777215
+      ).toString(16)}`;
+    }, 1000);
   }
 }
+
+stopBtn.disabled = true;
 
 function stopGenerateColor(event) {
   if (event.target == stopBtn) {
-    console.log('Я кнопка остановки генерации фона');
+      clearInterval(timerId);
+      stopBtn.disabled = true;
+      startBtn.disabled = false;
   }
-}
-
-function getRandomHexColor() {
-  return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
 }
