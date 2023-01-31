@@ -8,10 +8,10 @@ stopBtn.addEventListener('click', stopGenerateColor);
 
 let timerId = null;
 
-function startGenerateColor(event) {  
-  if (event.target == startBtn) {
-      startBtn.disabled = true;
-      stopBtn.disabled = false;
+function startGenerateColor(event) {
+  if (event.target === startBtn) {
+    startBtn.disabled = true;
+    stopBtn.disabled = false;
     timerId = setInterval(() => {
       document.body.style.backgroundColor = `#${Math.floor(
         Math.random() * 16777215
@@ -23,9 +23,9 @@ function startGenerateColor(event) {
 stopBtn.disabled = true;
 
 function stopGenerateColor(event) {
-  if (event.target == stopBtn) {
-      clearInterval(timerId);
-      stopBtn.disabled = true;
-      startBtn.disabled = false;
+  if (event.target === stopBtn) {
+    clearInterval(timerId);
+    stopBtn.disabled = true;
+    startBtn.disabled = false;
   }
 }
