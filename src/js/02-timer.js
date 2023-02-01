@@ -2,7 +2,6 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
 const calendar = document.getElementById('datetime-picker');
-const timer = document.querySelector('.timer');
 const startBtn = document.querySelector('button[data-start]');
 
 let refs = {
@@ -13,11 +12,10 @@ let refs = {
 };
 
 startBtn.disabled = true;
-// let intervalId = setInterval(startTimer, 1000);
+let intervalId = null;
 
 const now = new Date();
 let selectDate = null;
-
 
 flatpickr('#datetime-picker', {
   enableTime: true,
@@ -37,14 +35,30 @@ flatpickr('#datetime-picker', {
 
 startBtn.addEventListener('click', startTimer);
 
-function startTimer() {
-  console.log('НАЖАЛИ');
+function countDownTime() {
+  const now = new Date();
+  // console.log('НАЖАЛИ');
   const ms = selectDate - now.getTime();
-  console.log(convertMs(ms));
-  refs.dataDays.innerHTML = convertMs(ms).days;
-  refs.dataHours.innerHTML = convertMs(ms).hours;
-  refs.dataMinutes.innerHTML = convertMs(ms).minutes;
-  refs.dataSeconds.innerHTML = convertMs(ms).seconds;
+  // console.log(convertMs(ms));
+  // console.log('ИНТЕРВАЛ');
+  if (ms > 0) {
+    refs.dataDays.innerHTML = addZero(convertMs(ms).days);
+    refs.dataHours.innerHTML = addZero(convertMs(ms).hours);
+    refs.dataMinutes.innerHTML = addZero(convertMs(ms).minutes);
+    refs.dataSeconds.innerHTML = addZero(convertMs(ms).seconds);
+  } else {
+    clearInterval(intervalId);
+    // console.log('Остановили');
+  }
+}
+
+function addZero(number) {
+  return String(number).padStart(2, 0);
+}
+
+function startTimer() {
+  startBtn.disabled = true;
+  intervalId = setInterval(countDownTime, 1000);
 }
 
 function convertMs(ms) {
