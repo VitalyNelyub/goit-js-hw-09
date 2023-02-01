@@ -5,14 +5,19 @@ const calendar = document.getElementById('datetime-picker');
 const timer = document.querySelector('.timer');
 const startBtn = document.querySelector('button[data-start]');
 
+let refs = {
+  dataDays: document.querySelector('span[data-days]'),
+  dataHours: document.querySelector('span[data-hours]'),
+  dataMinutes: document.querySelector('span[data-minutes]'),
+  dataSeconds: document.querySelector('span[data-seconds]'),
+};
+
 startBtn.disabled = true;
+// let intervalId = setInterval(startTimer, 1000);
 
-const date = new Date();
+const now = new Date();
+let selectDate = null;
 
-// let ms = date - selectedDates[0].getTime();
-// console.log(ms);
-
-console.log(date.getTime());
 
 flatpickr('#datetime-picker', {
   enableTime: true,
@@ -20,56 +25,26 @@ flatpickr('#datetime-picker', {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    const now = new Date().getTime();
     const currentData = selectedDates[0].getTime();
-    if (currentData <= now) {
+    if (currentData <= now.getTime()) {
       window.alert('Please choose a date in the future');
-      console.log('ХЕРА ТЕБЕ');
-    } else if (currentData > now) {
+    } else if (currentData > now.getTime()) {
       startBtn.disabled = false;
-      console.log('ЗАЕБИСЬ');
-      // calendar.addEventListener('change', valueTime);
-      // valueTime();
+      selectDate = selectedDates[0].getTime();
     }
   },
 });
 
-function valueTime() {
-  calendar.addEventListener('change', value); 
-  value()
-  // console.log('ГДЕ ЗНАЧЕНИЕ?');
-}
+startBtn.addEventListener('click', startTimer);
 
-function value() {
-  console.log(currentData);
-}
-
-
-
-
-
-// let intervalId = setInterval(counterToTime, 1000);
-
-// startBtn.addEventListener('click', startTimer);
-
-// function startTimer() {
-//   startBtn.disabled = true;
-//   // intervalId = setInterval(countDownTimeToNY, 1000);
-// }
-
-function counterToTime() {
-  const now = Date.now();
-  // const now = new Date().getTime();
-  const diff = countDownDate - now;
-
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-
-  timer.textContent = `${days} d. ${addZero(hours)} h. ${addZero(
-    minutes
-  )} m. ${addZero(seconds)} s.`;
+function startTimer() {
+  console.log('НАЖАЛИ');
+  const ms = selectDate - now.getTime();
+  console.log(convertMs(ms));
+  refs.dataDays.innerHTML = convertMs(ms).days;
+  refs.dataHours.innerHTML = convertMs(ms).hours;
+  refs.dataMinutes.innerHTML = convertMs(ms).minutes;
+  refs.dataSeconds.innerHTML = convertMs(ms).seconds;
 }
 
 function convertMs(ms) {
@@ -90,7 +65,3 @@ function convertMs(ms) {
 
   return { days, hours, minutes, seconds };
 }
-
-console.log(convertMs(1675286220000 - 1675200136272));
-
-//  onClose: function(selectedDates, dateStr, instance)
