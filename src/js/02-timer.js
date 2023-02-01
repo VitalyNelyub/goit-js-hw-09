@@ -39,10 +39,7 @@ startBtn.addEventListener('click', startTimer);
 
 function countDownTime() {
   const now = new Date();
-  // console.log('НАЖАЛИ');
   const ms = selectDate - now.getTime();
-  // console.log(convertMs(ms));
-  // console.log('ИНТЕРВАЛ');
   if (ms > 0) {
     refs.dataDays.innerHTML = addZero(convertMs(ms).days);
     refs.dataHours.innerHTML = addZero(convertMs(ms).hours);
@@ -50,7 +47,7 @@ function countDownTime() {
     refs.dataSeconds.innerHTML = addZero(convertMs(ms).seconds);
   } else {
     clearInterval(intervalId);
-    // console.log('Остановили');
+    Notiflix.Notify.warning('Time is over');
   }
 }
 
