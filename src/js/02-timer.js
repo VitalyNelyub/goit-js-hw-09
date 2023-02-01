@@ -1,5 +1,6 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import Notiflix from 'notiflix';
 
 const calendar = document.getElementById('datetime-picker');
 const startBtn = document.querySelector('button[data-start]');
@@ -25,8 +26,9 @@ flatpickr('#datetime-picker', {
   onClose(selectedDates) {
     const currentData = selectedDates[0].getTime();
     if (currentData <= now.getTime()) {
-      window.alert('Please choose a date in the future');
+      Notiflix.Notify.failure('Please choose a date in the future');
     } else if (currentData > now.getTime()) {
+      Notiflix.Notify.success('Wellcome. You can press start');
       startBtn.disabled = false;
       selectDate = selectedDates[0].getTime();
     }
