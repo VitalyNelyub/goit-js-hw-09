@@ -29,7 +29,7 @@ function submitForm(e) {
     console.log(position);
     let delay = inputFirstDelay.value;
     console.log(delay);
-    createPromise(position, delay);
+    createPromise();
   }
 }
 
