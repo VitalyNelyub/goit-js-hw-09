@@ -24,13 +24,12 @@ function submitForm(e) {
   // console.log(inputStepDelay.value);
   // console.log(inputAmountCreatePromise.value);
   e.preventDefault();
-  for (let i = 0; i < inputAmountCreatePromise.value; i++) {
-    let position = i + 1;
+  for (let i = 1; i < inputAmountCreatePromise.value; i++) {
+    let position = i;
     console.log(position);
-    let delay = inputFirstDelay.value;
+    let delay = inputFirstDelay.value + inputStepDelay.value;
     console.log(delay);
-    createPromise();
-    
+    createPromise(position, delay);
   }
 }
 
@@ -48,7 +47,6 @@ function createPromise(position, delay) {
     }
   }, delay);
 }
-
 
 // function createPromise(position, delay) {
 //   setTimeout(() => {
