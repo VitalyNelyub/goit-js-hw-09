@@ -27,7 +27,7 @@ function submitForm(e) {
   for (let i = 1; i < inputAmountCreatePromise.value; i++) {
     let position = i;
     console.log(position);
-    let delay = inputFirstDelay.value + inputStepDelay.value;
+    let delay = inputFirstDelay.value;
     console.log(delay);
     createPromise(position, delay);
   }
